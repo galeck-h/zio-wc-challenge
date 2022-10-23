@@ -2,10 +2,10 @@ package my.zio.challenge
 
 import Config._
 import zio.stream.{ZPipeline, ZStream}
-import zio.{Ref, Task, UIO, ZIO, ZIOAppDefault}
+import zio.{Ref, Task, UIO, ZIO, ZIOAppDefault, ZLayer}
 import WindowCalc._
 
-import scala.collection.Seq
+import scala.collection.{MapView, Seq}
 
 
 
@@ -24,10 +24,10 @@ object Main extends ZIOAppDefault {
     for {
       state <- ZIO.service[State]
       _ <- readStream.foreach(updateWindowWithEvent(state.StateRef, _))
-      a = calculateFrequencyWithinWindow()
-    } yield ()
+      wc = calculateFrequencyWithinWindow(_)
+    } yield wc
 
 
 
-  def run = ???
+  def run: Task[MapView[String, MapView[String, Int]]] = dataWordCount.provide(ZLayer(Ref.make(Seq.empty[Data])).map(State)).flatMap(_)
 }
