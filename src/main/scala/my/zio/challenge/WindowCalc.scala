@@ -3,7 +3,7 @@ package my.zio.challenge
 import my.zio.challenge.Config.Data
 import zio._
 
-import java.lang.System.{console, currentTimeMillis}
+import java.lang.System.{currentTimeMillis}
 import scala.collection.MapView
 
 
