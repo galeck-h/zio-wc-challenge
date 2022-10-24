@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="60a70c04-8384-4098-b8c4-37164c1c49fc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/HttpServer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/HttpServer.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/WindowCalc.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/WindowCalc.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +74,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="my.zio.challenge" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="my.zio.challenge.Main" />
