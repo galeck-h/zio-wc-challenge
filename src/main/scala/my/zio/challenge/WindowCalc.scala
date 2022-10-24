@@ -1,10 +1,9 @@
 package my.zio.challenge
 
 import my.zio.challenge.Config.Data
-import zio.Console.printLine
 import zio._
 
-import java.lang.System.currentTimeMillis
+import java.lang.System.{console, currentTimeMillis}
 import scala.collection.MapView
 
 
@@ -16,17 +15,23 @@ object WindowCalc {
 
 
   def updateWindowWithEvent(ref: Ref[Seq[Data]], newData: Data): Task[Seq[Data]] = for {
-    newState <- ref.modify(state => (calcWindowState(state, newData),calcWindowState(state, newData)))
+    newState <- ref.modify(state => (calcWindowState(state),calcWindowState(state)))
+    _ <- Console.printLine("here")
   } yield newState
 
 
-  def calcWindowState(windowSeq: Seq[Data], event: Data): Seq[Data] = {
+  def calcWindowState(windowSeq: Seq[Data]): Seq[Data] = {
     val currentTimestamp = currentTimeMillis()/ 1000
-    val predicate = currentTimestamp - event.timestamp > windowLength
-    windowSeq.filterNot(predicate)
+    def predicate(ts: Long) = currentTimestamp - ts > windowLength.toSeconds
+    windowSeq.filterNot(d => predicate(d.timestamp))
   }
+}
 
-  def calculateFrequencyWithinWindow(windowSeq: Seq[Data]): MapView[String, MapView[String, Int]] =
+trait CalculateFrequencyWithinWindow{
+  def ServiceCalc(windowSeq: Seq[Data]): MapView[String, MapView[String, Int]]
+}
+
+class CalculateFrequencyWithinWindowImpl extends CalculateFrequencyWithinWindow{
+  override def ServiceCalc(windowSeq: Seq[Data]): MapView[String, MapView[String, Int]] =
     windowSeq.groupBy(_.eventType).view.mapValues(_.groupBy(_.data).view.mapValues(_.size))
-
 }
