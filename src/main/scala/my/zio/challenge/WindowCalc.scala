@@ -30,21 +30,18 @@ object WindowCalc {
 }
 
 
-object FreqCalc {
-  trait Service {
-    def Calculator(windowSeq: Seq[Data]): Task[MapView[String, MapView[String, Int]]]
-  }
+trait FreqCalc {
+  def Calculate(windowSeq: Seq[Data]): Task[MapView[String, MapView[String, Int]]]
+}
 
-//  class CalculateFrequencyWithinWindowImpl extends FreqCalc {
-//    override def Service(windowSeq: Seq[Data]): Task[MapView[String, MapView[String, Int]]] =
-//      ZIO.succeed(windowSeq.groupBy(_.eventType).view.mapValues(_.groupBy(_.data).view.mapValues(_.size)))
-//  }
+case class LiveFreqCalc(windowsState:Ref[Seq[Data]]) extends FreqCalc {
+  override def Calculate(windowSeq: Seq[Data]): Task[MapView[String, MapView[String, RuntimeFlags]]] =
+    for {
+      state <- windowsState.get
+      result <- ZIO.succeed(state.groupBy(_.eventType).view.mapValues(_.groupBy(_.data).view.mapValues(_.size)))
+    } yield result
+}
 
-  val live: ZLayer[Any, Nothing, Has[FreqCalc.Service]] = ZLayer.succeed(
-    // that same service we wrote above
-    new Service {
-      override def Calculator(windowSeq: Seq[Data]): Task[MapView[String, MapView[String, Int]]] =
-        ZIO.succeed(windowSeq.groupBy(_.eventType).view.mapValues(_.groupBy(_.data).view.mapValues(_.size)))
-    }
-  )
+object FreqCalcCalc {
+  def layer(windowsState: Ref[Seq[Data]]): ZLayer[Any, Nothing, LiveFreqCalc] = ZLayer { LiveFreqCalc(windowsState) }
 }
