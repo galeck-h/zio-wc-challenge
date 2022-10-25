@@ -4,6 +4,8 @@ import Config._
 import zio.stream.{ZPipeline, ZStream}
 import zio.{Ref, Task, UIO, ZIO, ZIOAppDefault, ZLayer}
 import WindowCalc._
+import my.zio.challenge.HttpServer.app
+import zhttp.service.Server
 
 
 
@@ -26,5 +28,5 @@ object Main extends ZIOAppDefault {
 
 
   val providedLayer= ZLayer(Ref.make(Seq.empty[Data]))
-  def run: Task[Unit] = dataProcessor.provide(providedLayer)
+  def run: Task[Unit] = dataProcessor.race(Server.start(8080, app)).provide(providedLayer)
 }
