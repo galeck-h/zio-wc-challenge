@@ -22,11 +22,11 @@ object Main extends ZIOAppDefault {
 
     val dataProcessor =
       for {
-        state <- Ref.make[Seq[Data]](Seq.empty[Data])
+        state <- Ref.make(Seq.empty[Data])
         _ <- readStream.foreach(updateWindowWithEvent(state, _))
       } yield ()
 
 
-  val providedLayer= ZLayer(Ref.make(Seq.empty[Data]))
+  val providedLayer= ZLayer(Ref.make(Seq.empty[Data])) ++ FreqCalcCalc.layer(Ref.make(Seq.empty[Data]))
   def run: Task[Unit] = dataProcessor.race(Server.start(8080, app)).provide(providedLayer)
 }

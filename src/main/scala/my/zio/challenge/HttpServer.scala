@@ -2,7 +2,8 @@ package my.zio.challenge
 
 import zhttp.http._
 import zio._
-import io.circe.parser._
+import io.circe.syntax._
+
 
 
 
@@ -15,7 +16,7 @@ object HttpServer extends ZIOAppDefault {
     case Method.GET -> !! / "wcstream" => for {
       service <- ZIO.service[LiveFreqCalc]
       result <- service.calculate()
-      response  <- Response.text(decode(result))
+      response  <- Response.json(result.ma)
     } yield response
   }
 
