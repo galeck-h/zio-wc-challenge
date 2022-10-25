@@ -31,14 +31,16 @@ object WindowCalc {
 
 
 trait FreqCalc {
-  def calculate(): Task[MapView[String, MapView[String, Int]]]
+  def calculate(): Task[MapView[(String, String), Int]]
 }
 
 case class LiveFreqCalc(windowsState:Ref[Seq[Data]]) extends FreqCalc {
-  override def calculate(): Task[MapView[String, MapView[String, Int]]] =
+  override def calculate(): Task[MapView[(String, String), Int]] =
     for {
       state <- windowsState.get
-      result <- ZIO.succeed(state.groupBy(_.eventType).view.mapValues(_.groupBy(_.data).view.mapValues(_.size)))
+      result <- Console.printLine("Calculating current state") *>
+                ZIO.succeed(state.groupBy(r => (r.eventType, r.data)).mapValues(_.size))
+                //ZIO.succeed(state.groupBy(_.eventType).view.mapValues(_.groupBy(_.data).view.mapValues(_.size)))
     } yield result
 }
 
