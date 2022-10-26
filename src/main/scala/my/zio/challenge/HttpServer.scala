@@ -1,23 +1,21 @@
 package my.zio.challenge
 
-import io.circe.generic.encoding.DerivedAsObjectEncoder.deriveEncoder
 import zhttp.http._
 import zio._
-import io.circe.syntax._
 
 
 
 
-object HttpServer extends ZIOAppDefault {
+object HttpServer {
 
     // Create HTTP route
-  val app: HttpApp[Any, Nothing] = Http.collect[Request] {
-    case Method.GET -> !! / "text" => Response.text("Hello World!")
-    case Method.GET -> !! / "json" => Response.json("""{"greetings": "Hello World!"}""")
-    case Method.GET -> !! / "wcstream" => for {
-      service <- ZIO.service[LiveFreqCalc]
+  val app = Http.collectZIO[Request] {
+    case Method.GET -> !! / "text" => ZIO.succeed(Response.text("Hello World!"))
+    case Method.GET -> !! / "json" =>ZIO.succeed(Response.json("""{"greetings": "Hello World!"}"""))
+    case Method.GET -> !! / "wc_stream" => for {
+      service <- ZIO.service[FreqCalc]
       result <- service.calculate()
-      response <- Response.json(result.asJson)
+      response = Response.text(result.toString())
     } yield response
   }
 
