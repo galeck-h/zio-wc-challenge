@@ -18,7 +18,5 @@ object HttpServer {
       response = Response.text(result.toString())
     } yield response
   }
-
-  //override val run = Server.start(8080, app)
 }
 
