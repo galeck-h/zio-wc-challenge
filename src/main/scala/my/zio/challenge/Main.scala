@@ -17,12 +17,12 @@ object Main extends ZIOAppDefault {
     ZStream.fromInputStream(sys.process.stdin)
       .via(ZPipeline.utf8Decode)
       .map(decode[Data])
-      .map(l => l.asInstanceOf[Data])
+      .collectRight
       .map(_.copy(timestamp = System.currentTimeMillis() / 1000))
       //.catchAllCause(_ => ZStream.succeed())
   }
 
-    val dataProcessor =
+    val dataProcessor: ZIO[FreqCalc, Throwable, Unit] =
       for {
         freqState <- ZIO.service[FreqCalc]
         _ <- readStream.foreach(freqState.update)

@@ -1,7 +1,9 @@
 package my.zio.challenge
 
 import my.zio.challenge.Config.Data
+import zio.Console.printLine
 import zio._
+
 import java.lang.System.currentTimeMillis
 import scala.collection.MapView
 
@@ -17,7 +19,6 @@ case class LiveFreqCalc(state:Ref[Seq[Data]]) extends FreqCalc {
 
   override def calcWindowState(windowSeq: Seq[Data]): Seq[Data] = {
     val windowLength = 10.seconds
-    var currentMaxTimestamp = Long.MinValue
 
     val currentTimestamp = currentTimeMillis() / 1000
     def predicate(ts: Long) = currentTimestamp - ts > windowLength.toSeconds
@@ -30,7 +31,6 @@ case class LiveFreqCalc(state:Ref[Seq[Data]]) extends FreqCalc {
 }
 
 object FreqCalc {
-
 
   val live: ZLayer[Ref[Seq[Data]], Nothing, FreqCalc]  = ZLayer.fromZIO(ZIO.service[Ref[Seq[Data]]].flatMap(ref => { ZIO.succeed(LiveFreqCalc(ref)) }))
 }
