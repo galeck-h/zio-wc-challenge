@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="60a70c04-8384-4098-b8c4-37164c1c49fc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/WindowCalc.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/WindowCalc.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,14 +69,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "settings.editor.selected.configurable": "editor.preferences.appearance"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="my.zio.challenge" />

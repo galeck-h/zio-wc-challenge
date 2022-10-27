@@ -26,7 +26,7 @@ case class LiveFreqCalc(state:Ref[Seq[Data]]) extends FreqCalc {
   }
 
   override def update(data: Data): UIO[Unit] = for {
-    _ <- state.modify(state => (calcWindowState(state), calcWindowState(state)))
+    _ <- ZIO.succeed(println(s"state ${state} is updated")) *> state.modify(state => (calcWindowState(state), calcWindowState(state)))
   } yield ()
 }
 
