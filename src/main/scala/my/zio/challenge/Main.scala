@@ -30,7 +30,7 @@ object Main extends ZIOAppDefault {
 
 
   def run: Task[Unit] = (for {
-    _ <-  Server.start(8080, app).forkDaemon
+    _ <-  (Server.start(8080, app) *> ZIO.never).forkDaemon
     _ <- dataProcessor
   } yield () ).provide(FreqCalc.live, ZLayer.fromZIO(Ref.make(Seq.empty[Data])))
 }

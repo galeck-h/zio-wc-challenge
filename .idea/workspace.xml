@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="60a70c04-8384-4098-b8c4-37164c1c49fc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/WindowCalc.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/my/zio/challenge/WindowCalc.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
